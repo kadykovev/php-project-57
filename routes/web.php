@@ -19,7 +19,8 @@ use App\Http\Controllers\LabelController;
 
 Route::get('/', function () {
     return view('home');
-})->name('home');;
+})->name('home');
+;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -31,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::resource('task_statuses', TaskStatusController::class);
 Route::resource('tasks', TaskController::class);
