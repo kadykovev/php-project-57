@@ -11,6 +11,7 @@ validate:
 
 setup:
 	cp -n .env.example .env || true
+	touch database/database.sqlite
 	composer install
 	php artisan key:generate
 	php artisan migrate
