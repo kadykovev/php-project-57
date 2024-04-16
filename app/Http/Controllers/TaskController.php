@@ -70,18 +70,15 @@ class TaskController extends Controller
             ]
         );
 
-        $task = Task::create(array_merge($validated, ['created_by_id' => Auth::user()->id]));
-        //$task->save();
-
+        $currentUser = Auth::user();
+        $task = $currentUser->createdTasks()->create($validated);
         $labels = collect($request->input('labels'))->whereNotNull();
-
 
         if ($labels->isNotEmpty()) {
             $task->labels()->attach($labels);
         }
 
         flash(__('tasks.flash_stored'))->success();
-
         return redirect()->route('tasks.index');
     }
 
@@ -112,7 +109,6 @@ class TaskController extends Controller
         $validated = $this->validate(
             $request,
             [
-                //'name' => 'required|unique:tasks,name,' . $task->id,
                 'name' => [
                     'required',
                     Rule::unique('tasks', 'name')->ignore($task->id)
@@ -127,15 +123,10 @@ class TaskController extends Controller
             ]
         );
 
-        $labels = collect($request->input('labels'));
-
-        $task->fill($validated);
-        $task->save();
-
-        //$task->labels()->sync($labels);
-
+        $task->fill($validated)->save();
+        $labels = collect($request->input('labels'))->whereNotNull();
+        $task->labels()->sync($labels);
         flash(__('tasks.flash_updated'))->success();
-
         return redirect()->route('tasks.index');
     }
 
@@ -147,7 +138,6 @@ class TaskController extends Controller
         $task->labels()->detach();
         $task->delete();
         flash(__('tasks.flash_deleted'))->success();
-
         return redirect()->route('tasks.index');
     }
 }

@@ -13,7 +13,7 @@
                 {{ Form::text('name', null, ['class' => 'rounded border-gray-300 w-1/3']) }}
             </div>
             @error('name')
-            <div class="text-rose-600">{{ $message }}</div>
+                <div class="text-rose-600">{{ $message }}</div>
             @enderror
             <div class="mt-2">
                 {{ Form::label('description', __('tasks.description')) }}
@@ -25,16 +25,16 @@
                 {{ Form::label('status_id', __('tasks.status')) }}
             </div>
             <div>
-                {{ Form::select('status_id', $taskStatuses, null, ['class' => 'rounded border-gray-300 w-1/3',  'placeholder' => '----------'] )}}
+                {{ Form::select('status_id', $taskStatuses, null, ['placeholder' => '----------', 'class' => 'rounded border-gray-300 w-1/3'] )}}
             </div>
             @error('status_id')
-            <div class="text-rose-600">{{ $message }}</div>
+                <div class="text-rose-600">{{ $message }}</div>
             @enderror
             <div class="mt-2">
                 {{ Form::label('assigned_to_id', __('tasks.assigned_to')) }}
             </div>
             <div>
-                {{ Form::select('assigned_to_id', $users, null, ['class' => 'rounded border-gray-300 w-1/3', 'placeholder' => '----------'] )}}
+                {{ Form::select('assigned_to_id', $users, null, ['placeholder' => '----------', 'class' => 'rounded border-gray-300 w-1/3'] )}}
             </div>
             <div class="mt-2">
                 {{Form::label('labels', __('tasks.labels'))}}
