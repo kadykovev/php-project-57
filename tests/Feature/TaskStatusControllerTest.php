@@ -6,11 +6,14 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\TaskStatus;
 use App\Models\Task;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TaskStatusControllerTest extends TestCase
 {
+    use RefreshDatabase;
     private User $user;
     private TaskStatus $taskStatus;
+    private array $data;
 
     public function setUp(): void
     {
@@ -18,8 +21,8 @@ class TaskStatusControllerTest extends TestCase
         $this->user = User::factory()->create();
         $this->actingAs($this->user);
         $this->taskStatus = TaskStatus::factory()->create();
+        $this->data = ['name' => fake()->word()];
     }
-
 
     public function testIndex(): void
     {
@@ -35,12 +38,10 @@ class TaskStatusControllerTest extends TestCase
 
     public function testStore(): void
     {
-        $data = ['name' => 'TaskStatus'];
-
-        $response = $this->post(route('task_statuses.store'), $data);
+        $response = $this->post(route('task_statuses.store'), $this->data);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('task_statuses', $data);
+        $this->assertDatabaseHas('task_statuses', $this->data);
     }
 
     public function testEdit(): void
@@ -51,12 +52,10 @@ class TaskStatusControllerTest extends TestCase
 
     public function testUpdate(): void
     {
-        $data = ['name' => 'NewTaskStatus'];
-
-        $response = $this->patch(route('task_statuses.update', ['task_status' => $this->taskStatus]), $data);
+        $response = $this->patch(route('task_statuses.update', ['task_status' => $this->taskStatus]), $this->data);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('task_statuses', $data);
+        $this->assertDatabaseHas('task_statuses', $this->data);
     }
 
     public function testDelete(): void

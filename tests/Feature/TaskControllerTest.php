@@ -2,16 +2,18 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Task;
 use App\Models\TaskStatus;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TaskControllerTest extends TestCase
 {
+    use RefreshDatabase;
     private User $user;
     private Task $task;
+    private array $data;
 
     public function setUp(): void
     {
@@ -19,6 +21,7 @@ class TaskControllerTest extends TestCase
         $this->user = User::factory()->create();
         $this->actingAs($this->user);
         $this->task = Task::factory()->create(['created_by_id' => $this->user->id]);
+        $this->data = ['name' => fake()->word(), 'status_id' => TaskStatus::factory()->create()->id];
     }
 
     public function testIndex(): void
@@ -41,12 +44,10 @@ class TaskControllerTest extends TestCase
 
     public function testStore(): void
     {
-        $data = ['name' => 'Task', 'status_id' => TaskStatus::factory()->create()->id];
-
-        $response = $this->post(route('tasks.store'), $data);
+        $response = $this->post(route('tasks.store'), $this->data);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('tasks', $data);
+        $this->assertDatabaseHas('tasks', $this->data);
     }
 
     public function testEdit(): void
@@ -57,12 +58,10 @@ class TaskControllerTest extends TestCase
 
     public function testUpdate(): void
     {
-        $data = ['name' => 'NewTask', 'status_id' => TaskStatus::factory()->create()->id];
-
-        $response = $this->patch(route('tasks.update', ['task' => $this->task]), $data);
+        $response = $this->patch(route('tasks.update', ['task' => $this->task]), $this->data);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('tasks', $data);
+        $this->assertDatabaseHas('tasks', $this->data);
     }
 
     public function testDelete(): void

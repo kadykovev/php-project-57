@@ -2,18 +2,19 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Label;
 use App\Models\Task;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LabelControllerTest extends TestCase
 {
+    use RefreshDatabase;
     private User $user;
     private Label $label;
     private Task $task;
+    private array $data;
 
     public function setUp(): void
     {
@@ -22,6 +23,7 @@ class LabelControllerTest extends TestCase
         $this->actingAs($this->user);
         $this->label = Label::factory()->create();
         $this->task = Task::factory()->create();
+        $this->data = ['name' => fake()->word()];
     }
 
     public function testIndex(): void
@@ -38,12 +40,10 @@ class LabelControllerTest extends TestCase
 
     public function testStore(): void
     {
-        $data = ['name' => 'Label'];
-
-        $response = $this->post(route('labels.store'), $data);
+        $response = $this->post(route('labels.store'), $this->data);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('labels', $data);
+        $this->assertDatabaseHas('labels', $this->data);
     }
 
     public function testEdit(): void
@@ -54,12 +54,10 @@ class LabelControllerTest extends TestCase
 
     public function testUpdate(): void
     {
-        $data = ['name' => 'NewLabel'];
-
-        $response = $this->patch(route('labels.update', ['label' => $this->label]), $data);
+        $response = $this->patch(route('labels.update', ['label' => $this->label]), $this->data);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('labels', $data);
+        $this->assertDatabaseHas('labels', $this->data);
     }
 
     public function testDelete(): void
