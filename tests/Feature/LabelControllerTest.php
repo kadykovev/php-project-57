@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class LabelControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     private User $user;
     private Label $label;
     private Task $task;
