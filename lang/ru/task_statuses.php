@@ -16,7 +16,7 @@ return [
     'create_form_button' => 'Создать',
     'edit_form_button' => 'Обновить',
     'flash_stored' => 'Статус успешно создан',
-    'flash_updated' => 'Статус успешно обновлен',
+    'flash_updated' => 'Статус успешно изменён',
     'flash_deleted' => 'Статус успешно удалён',
     'flash_error' => 'Не удалось удалить статус',
     'validation_required' => 'Это обязательное поле',
