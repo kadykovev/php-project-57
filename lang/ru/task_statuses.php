@@ -17,7 +17,7 @@ return [
     'edit_form_button' => 'Обновить',
     'flash_stored' => 'Статус успешно создан',
     'flash_updated' => 'Статус успешно обновлен',
-    'flash_deleted' => 'Статус успешно удален',
+    'flash_deleted' => 'Статус успешно удалён',
     'flash_error' => 'Не удалось удалить статус',
     'validation_required' => 'Это обязательное поле',
     'validation_unique' => 'Статус с таким именем уже существует',
