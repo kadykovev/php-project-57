@@ -18,7 +18,7 @@ class TaskStatusController extends Controller
      */
     public function index()
     {
-        $taskStatuses = TaskStatus::paginate(15);
+        $taskStatuses = TaskStatus::orderBy('id')->paginate(15);
         return view('task_status.index', compact('taskStatuses'));
     }
 
@@ -42,13 +42,13 @@ class TaskStatusController extends Controller
                 'name' => 'required|unique:task_statuses'
             ],
             [
+                'required' => __('task_statuses.validation_required'),
                 'name.unique' => __('task_statuses.validation_unique'),
             ]
         );
 
         $taskStatus = new TaskStatus();
-        $taskStatus->fill($validated);
-        $taskStatus->save();
+        $taskStatus->fill($validated)->save();
         flash(__('task_statuses.flash_stored'))->success();
         return redirect()->route('task_statuses.index');
     }
@@ -69,15 +69,18 @@ class TaskStatusController extends Controller
         $validated = $this->validate(
             $request,
             [
-                'name' => Rule::unique('task_statuses', 'name')->ignore($taskStatus->id)
+                'name' => [
+                    'required',
+                    Rule::unique('task_statuses', 'name')->ignore($taskStatus->id)
+                ]
             ],
             [
+                'required' => __('task_statuses.validation_required'),
                 'name.unique' => __('task_statuses.validation_unique')
             ]
         );
 
-        $taskStatus->fill($validated);
-        $taskStatus->save();
+        $taskStatus->fill($validated)->save();
         flash(__('task_statuses.flash_updated'))->success();
         return redirect()->route('task_statuses.index');
     }

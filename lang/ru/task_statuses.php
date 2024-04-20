@@ -19,5 +19,7 @@ return [
     'flash_updated' => 'Статус успешно обновлен',
     'flash_deleted' => 'Статус успешно удален',
     'flash_error' => 'Не удалось удалить статус',
+    'validation_required' => 'Это обязательное поле',
     'validation_unique' => 'Статус с таким именем уже существует',
+
 ];

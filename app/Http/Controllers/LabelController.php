@@ -18,7 +18,7 @@ class LabelController extends Controller
      */
     public function index()
     {
-        $labels = Label::paginate(15);
+        $labels = Label::orderBy('id')->paginate(15);
         return view('label.index', compact('labels'));
     }
 
@@ -43,6 +43,7 @@ class LabelController extends Controller
                 'description' => 'nullable|string'
             ],
             [
+                'required' => __('labels.validation_required'),
                 'name.unique' => __('labels.validation_unique')
             ]
         );
@@ -76,6 +77,7 @@ class LabelController extends Controller
                 'description' => 'nullable|string'
             ],
             [
+                'required' => __('labels.validation_required'),
                 'name.unique' => __('labels.validation_unique')
             ]
         );

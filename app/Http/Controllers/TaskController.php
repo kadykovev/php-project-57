@@ -66,7 +66,8 @@ class TaskController extends Controller
                 'label' => 'nullable|array',
             ],
             [
-                'name.unique' => __('tasks.validation_unique')
+                'required' => __('tasks.validation_required'),
+                'name.unique' => __('tasks.validation_unique'),
             ]
         );
 
@@ -119,6 +120,7 @@ class TaskController extends Controller
                 'label' => 'nullable|array',
             ],
             [
+                'required' => __('tasks.validation_required'),
                 'name.unique' => __('tasks.validation.unique')
             ]
         );
