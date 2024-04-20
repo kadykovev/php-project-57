@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\LocaleController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskStatusController;
 use App\Http\Controllers\TaskController;
@@ -20,7 +17,7 @@ use App\Http\Controllers\LabelController;
 */
 
 Route::get('locale/{locale}', function ($locale) {
-    if (isset($locale) && in_array($locale, config('app.available_locales'))) {
+    if (isset($locale) && in_array($locale, config('app.available_locales'), true)) {
         app()->setLocale($locale);
         session()->put('locale', $locale);
     }
