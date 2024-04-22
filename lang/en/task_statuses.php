@@ -20,6 +20,6 @@ return [
     'flash_deleted' => 'Status successfully deleted',
     'flash_error' => 'The status could not be deleted',
     'validation_required' => 'This is a required field',
+    'validation_max' => 'The name field must not be greater than :max characters',
     'validation_unique' => 'A status with the same name already exists',
-
 ];

@@ -39,12 +39,14 @@ class LabelController extends Controller
         $validated = $this->validate(
             $request,
             [
-                'name' => 'required|unique:labels',
-                'description' => 'nullable|string'
+                'name' => 'required|unique:labels|max:255',
+                'description' => 'nullable|max:1000'
             ],
             [
                 'required' => __('labels.validation_required'),
-                'name.unique' => __('labels.validation_unique')
+                'name.unique' => __('labels.validation_name_unique'),
+                'name.max' => __('labels.validation_name_max'),
+                'description.max' => __('labels.validation_description_max')
             ]
         );
 
@@ -72,13 +74,16 @@ class LabelController extends Controller
             [
                 'name' => [
                     'required',
+                    'max:255',
                     Rule::unique('labels', 'name')->ignore($label->id)
                 ],
-                'description' => 'nullable|string'
+                'description' => 'nullable|max:1000'
             ],
             [
                 'required' => __('labels.validation_required'),
-                'name.unique' => __('labels.validation_unique')
+                'name.unique' => __('labels.validation_name_unique'),
+                'name.max' => __('labels.validation_name_max'),
+                'description.max' => __('labels.validation_description_max')
             ]
         );
 

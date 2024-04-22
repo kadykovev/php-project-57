@@ -20,5 +20,7 @@ return [
     'flash_deleted' => 'The label was successfully deleted',
     'flash_error' => 'Couldn\'t delete the label',
     'validation_required' => 'This is a required field',
-    'validation_unique' => 'A label with the same name already exists',
+    'validation_name_max' => 'The :attribute field must not be greater than :max characters',
+    'validation_name_unique' => 'A label with the same name already exists',
+    'validation_description_max' => 'The :attribute field must not be greater than :max characters'
 ];

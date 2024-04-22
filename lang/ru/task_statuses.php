@@ -20,6 +20,6 @@ return [
     'flash_deleted' => 'Статус успешно удалён',
     'flash_error' => 'Не удалось удалить статус',
     'validation_required' => 'Это обязательное поле',
+    'validation_max' => 'Имя не должно превышать :max символов',
     'validation_unique' => 'Статус с таким именем уже существует',
-
 ];

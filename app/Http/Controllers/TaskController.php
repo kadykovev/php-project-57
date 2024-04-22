@@ -59,15 +59,17 @@ class TaskController extends Controller
         $validated = $this->validate(
             $request,
             [
-                'name' => 'required|unique:tasks',
-                'status_id' => 'required|exists:task_statuses,id',
-                'description' => 'nullable|string',
+                'name' => 'required|unique:tasks|max:255',
+                'status_id' => 'required|integer|exists:task_statuses,id',
+                'description' => 'string|max:1000',
                 'assigned_to_id' => 'nullable|integer',
                 'label' => 'nullable|array',
             ],
             [
                 'required' => __('tasks.validation_required'),
-                'name.unique' => __('tasks.validation_unique'),
+                'name.max' => __('tasks.validation_name_max'),
+                'name.unique' => __('tasks.validation_name_unique'),
+                'description.max' => __('tasks.validation_description_max'),
             ]
         );
 
@@ -112,16 +114,19 @@ class TaskController extends Controller
             [
                 'name' => [
                     'required',
+                    'max:255',
                     Rule::unique('tasks', 'name')->ignore($task->id)
                 ],
-                'description' => 'nullable|string',
+                'description' => 'nullable|max:1000',
                 'assigned_to_id' => 'nullable|integer',
                 'status_id' => 'required|integer',
                 'label' => 'nullable|array',
             ],
             [
                 'required' => __('tasks.validation_required'),
-                'name.unique' => __('tasks.validation.unique')
+                'name.max' => __('tasks.validation_name_max'),
+                'name.unique' => __('tasks.validation_name_unique'),
+                'description.max' => __('tasks.validation_description_max')
             ]
         );
 

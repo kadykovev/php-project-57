@@ -21,6 +21,9 @@
             <div class="mt-2">
                 {{ Form::textarea('description', null, ['class' => 'rounded border-gray-300 w-1/3 h-32']) }}
             </div>
+            @error('description')
+                <div class="text-rose-600">{{ $message }}</div>
+            @enderror
             <div class="mt-2">
                 {{ Form::submit(__('labels.update'), ['class' => 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded']) }}
             </div>

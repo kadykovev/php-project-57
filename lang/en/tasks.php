@@ -32,6 +32,8 @@ return [
     'flash_updated' => 'Task changed successfully',
     'flash_error' => 'Failed to delete the task',
 
-    'validation_unique' => 'A task with this name already exists',
-    'validation_required' => 'This is a required field'
+    'validation_required' => 'This is a required field',
+    'validation_name_unique' => 'A task with this name already exists',
+    'validation_name_max' => 'The :attribute field must not be greater than :max characters',
+    'validation_description_max' => 'The :attribute field must not be greater than :max characters'
 ];

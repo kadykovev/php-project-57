@@ -39,11 +39,12 @@ class TaskStatusController extends Controller
         $validated = $this->validate(
             $request,
             [
-                'name' => 'required|unique:task_statuses'
+                'name' => 'required|unique:task_statuses|max:255'
             ],
             [
                 'required' => __('task_statuses.validation_required'),
-                'name.unique' => __('task_statuses.validation_unique'),
+                'unique' => __('task_statuses.validation_unique'),
+                'max' => __('task_statuses.validation_max'),
             ]
         );
 
@@ -71,12 +72,14 @@ class TaskStatusController extends Controller
             [
                 'name' => [
                     'required',
+                    'max:255',
                     Rule::unique('task_statuses', 'name')->ignore($taskStatus->id)
                 ]
             ],
             [
                 'required' => __('task_statuses.validation_required'),
-                'name.unique' => __('task_statuses.validation_unique')
+                'unique' => __('task_statuses.validation_unique'),
+                'max' => __('task_statuses.validation_max'),
             ]
         );
 
